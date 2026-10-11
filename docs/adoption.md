@@ -1,6 +1,6 @@
 # Adoption Guide
 
-`desktop-platform` を新しいツールへ導入するとき、または既存のツール（image-library、Shelf）へ段階的に適用するときの手順です。
+`desktop-platform` を新しいツールへ導入するとき、または既存のツール（stockroom、Shelf）へ段階的に適用するときの手順です。
 
 ## 1. Platform を workspace へ配置する
 
@@ -10,7 +10,7 @@
 workspace/
 ├── desktop-platform/     ルール
 ├── desktop-base/         共通コード（crate、npm package、template、workflow）
-├── image-library/
+├── stockroom/
 └── workbench/
     └── shelf/
 ```
@@ -48,7 +48,7 @@ relative path は workspace の構成に合わせます。同居リポジトリ�
 | 外との接続 | なし / ブラウザ拡張 / MCP / ほか。ポートと token の扱い |
 | 配布の形 | 単独リポジトリか workbench 同居か。tag と feed の形 |
 | 識別子 | `identifier`。一度配布したら変えない |
-| desktop-base | 使っている tag。未採用なら image-library のどのコミットから写したか |
+| desktop-base | 使っている tag。未採用なら stockroom のどのコミットから写したか |
 
 該当しない項目は「該当なし」と書きます。機能要件、ロードマップ、画面仕様は置きません（それらは `docs/`）。
 
@@ -77,9 +77,9 @@ Standard との違いだけを理由に全面 migration しません。最初に
 
 | ツール | 区分 | 差分 |
 |---|---|---|
-| image-library | Required | なし |
-| image-library | Adopt going forward | `CLAUDE.md` と `project-context.md` が無い。Linter / fmt / clippy が CI に無い。リリースの本文が CHANGELOG でなく固定文。`proxy.rs` / `update.ts` / `log.ts` を desktop-base に差し替える |
-| image-library | Optional improvement | 画像だけの機能（重複、回転）を `features/images/` に寄せる（`docs/ARCHITECTURE.md`「今後」） |
+| stockroom | Required | なし |
+| stockroom | Adopt going forward | `CLAUDE.md` と `project-context.md` が無い。Linter / fmt / clippy が CI に無い。リリースの本文が CHANGELOG でなく固定文。`proxy.rs` / `update.ts` / `log.ts` を desktop-base に差し替える |
+| stockroom | Optional improvement | 画像だけの機能（重複、回転）を `features/images/` に寄せる（`docs/ARCHITECTURE.md`「今後」） |
 | Shelf | Required | `tauri.conf.json` の `csp` が `null` |
 | Shelf | Adopt going forward | `CLAUDE.md` と `project-context.md` が無い。Linter / fmt / clippy が CI に無い。`proxy.rs` / `update.rs` を desktop-base に差し替える |
 | Shelf | Optional improvement | なし |

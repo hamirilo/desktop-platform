@@ -4,7 +4,7 @@
 
 | 領域 | 差 | 対処 | 出どころ |
 |---|---|---|---|
-| ドラッグ&ドロップ | Windows では Tauri のファイルドロップ受付と HTML5 DnD が両立しない | アプリ内の DnD は pointer イベントで自前実装 | image-library README |
+| ドラッグ&ドロップ | Windows では Tauri のファイルドロップ受付と HTML5 DnD が両立しない | アプリ内の DnD は pointer イベントで自前実装 | stockroom README |
 | タイトルバー | macOS は Overlay で隠せる。Windows は OS の枠 | macOS だけ `titleBarStyle: "Overlay"` と drag region。Windows は触らない | `src/lib/titleBar.ts` |
 | 半透明 | macOS の vibrancy は Windows に無い | `cfg(target_os = "macos")` でサイドバーだけ。Windows は不透明 | `lib.rs` `main_window` |
 | メニュー | macOS はアプリメニュー、Windows はウィンドウ上部 | 同じコマンド表から両方を作る。macOS の Edit メニューは標準項目を使う | `src/lib/menuBar.ts` |
@@ -21,4 +21,4 @@
 | ドラッグ開始の検知 | macOS は NSPasteboard の監視で分かる。Windows に同等の方法が無い | Windows は画面端のウィンドウで代用 | Shelf `drag_watch.rs` |
 | コンソール | Windows の release でコンソールが出る | `windows_subsystem = "windows"` | `src-tauri/src/main.rs` |
 | Linux（CI） | GTK は枠が付くまで outer size を返さない | `inner_size` に落ちる。Linux は配布しない | Shelf `lib.rs` |
-| ログの場所 | `~/Library/Logs/<identifier>/` と `%LOCALAPPDATA%\<identifier>\logs\` | README に両方書く | image-library README「ログ」 |
+| ログの場所 | `~/Library/Logs/<identifier>/` と `%LOCALAPPDATA%\<identifier>\logs\` | README に両方書く | stockroom README「ログ」 |

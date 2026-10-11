@@ -25,7 +25,7 @@
 - 外のリソースを読み込む機能を足すときは、CSP にその出どころを足す。`*` で開けない。
 - リモートの URL をメインウィンドウに読み込まない。Web の内容を見せたいときは別ウィンドウか OS のブラウザ（opener）で開く。
 
-出どころ：image-library `src-tauri/tauri.conf.json`、commit「CSP を設定する（csp: null をやめる）」。Shelf は `csp: null` のままで、この Standard の最初の Required 差分。
+出どころ：stockroom `src-tauri/tauri.conf.json`、commit「CSP を設定する（csp: null をやめる）」。Shelf は `csp: null` のままで、この Standard の最初の Required 差分。
 
 ## 2. capabilities
 
@@ -33,7 +33,7 @@
 - 補助ウィンドウ（Shelf の `edge`）には別の capability ファイルを作り、`core:default` だけにする。
 - plugin を足したら、その `default` 権限を足す。plugin を外したら権限も外す。
 
-出どころ：image-library `src-tauri/capabilities/default.json`、Shelf `capabilities/default.json` と `edge.json`。
+出どころ：stockroom `src-tauri/capabilities/default.json`、Shelf `capabilities/default.json` と `edge.json`。
 
 ## 3. asset protocol
 
@@ -41,7 +41,7 @@
 - 表示するファイルは実行時に `asset_protocol_scope().allow_file(path)` で **1 ファイルずつ** 許可する。ディスク全体やホームを開けない。
 - ユーザーのデータを 1 つのフォルダで持つツールは、そのフォルダだけを許可してよい。
 
-出どころ：Shelf `src-tauri/src/lib.rs` の `allow_thumbnails`、image-library `tauri.conf.json`。
+出どころ：Shelf `src-tauri/src/lib.rs` の `allow_thumbnails`、stockroom `tauri.conf.json`。
 
 ## 4. 外から来るファイル
 
@@ -51,10 +51,10 @@
 - 拡張子でなく中身で判定する。`.pdf` でも中身が PDF でなければ取り込まない（`<iframe>` でスクリプトが動かないように）。
 - SVG の外部参照は読まない。`<image href>` は `data:` URL だけ。
 - Web から来たファイルを OS の自動化（Office の変換、Quick Look 以外の外部プロセス）に渡さない。
-- 取り込みの受け付け body にも上限を設ける（image-library は 300 MB）。
+- 取り込みの受け付け body にも上限を設ける（stockroom は 300 MB）。
 - 外からのデータに `unwrap()` を使わない。`Result` で返し、ユーザーに読める形で知らせる。
 
-出どころ：image-library `docs/ARCHITECTURE.md`「外から来るファイルとセキュリティ」、`src-tauri/src/formats.rs`（`svg_options`）、`files/mod.rs`（`is_pdf`）、`fonts/mod.rs`（WOFF2 の事前チェック）、`webimport.rs`（`MAX_BODY`）。
+出どころ：stockroom `docs/ARCHITECTURE.md`「外から来るファイルとセキュリティ」、`src-tauri/src/formats.rs`（`svg_options`）、`files/mod.rs`（`is_pdf`）、`fonts/mod.rs`（WOFF2 の事前チェック）、`webimport.rs`（`MAX_BODY`）。
 
 ## 5. ローカル待ち受け
 
@@ -66,7 +66,7 @@
 - プロキシは OS の設定（PAC を含む）をそのまま使う。独自のプロキシ設定画面を作らない。
 - Web からのダウンロードが必要なら、ブラウザ拡張にブラウザの Cookie とプロキシ設定で取らせ、アプリは URL を取りに行かない。
 
-出どころ：image-library `src-tauri/src/proxy.rs`、`src/lib/update.ts`、`webimport.rs` のモジュールコメント。
+出どころ：stockroom `src-tauri/src/proxy.rs`、`src/lib/update.ts`、`webimport.rs` のモジュールコメント。
 
 ## 7. アップデートの署名
 

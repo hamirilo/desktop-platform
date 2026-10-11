@@ -1,6 +1,6 @@
 # 新しいツールを作る
 
-image-library を土台に、新しいデスクトップツールを起こして最初のリリースまで持っていく手順。
+stockroom を土台に、新しいデスクトップツールを起こして最初のリリースまで持っていく手順。
 
 ## 0. 決めること
 
@@ -23,7 +23,7 @@ desktop-base の `template/` をツールのディレクトリへコピーし、
 
 ### desktop-base がまだ無いとき
 
-image-library から次を写す。写した時点のコミットを `decisions/project-context.md` に書いておき、desktop-base ができたら差し替える。
+stockroom から次を写す。写した時点のコミットを `decisions/project-context.md` に書いておき、desktop-base ができたら差し替える。
 
 | 写すもの | 変えるところ |
 |---|---|

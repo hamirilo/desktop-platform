@@ -2,6 +2,20 @@
 
 release は `v<major>.<minor>.<patch>` の tag と、この file の `## <version>` の節で行う。各節に「既存のツールで対応が必要な変更」の有無を必ず書く。
 
+## 0.1.1
+
+image-library が stockroom に改名したのに合わせて、名前と参照を直した。
+
+### 内容
+
+- すべての Standard、Recommendations、Playbook、ADR、templates の image-library を stockroom に置き換えた。README に旧名とリポジトリの場所を書いた
+- `playbook/release.md` の `cargo update -p` を stockroom の crate 名に合わせた
+- `playbook/updater-key.md`：鍵のファイル名は改名前のままであることと、owner が違うツールはその owner で鍵を作ることを明記した
+
+### 既存のツールで対応が必要な変更
+
+- なし
+
 ## 0.1.0
 
 最初の版。image-library（v0.17.0）と Shelf（0.1.3）で有効だったものを Core Standard にした。

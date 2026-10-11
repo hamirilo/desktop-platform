@@ -9,7 +9,8 @@ npx tauri signer generate -w ~/.tauri/<owner>.key
 ```
 
 - 秘密鍵 `~/.tauri/<owner>.key` と公開鍵（コマンドの出力）ができる。パスワードを付けた場合は `_PASSWORD` の Secret にも入れる。
-- 既存の鍵（`~/.tauri/image-library.key`）は image-library と Shelf が共有している。**新しいツールもこの鍵を使う。** 名前が image-library でも owner の鍵として扱う。
+- 既存の鍵（`~/.tauri/image-library.key`。stockroom の改名前の名前のまま）は stockroom と Shelf が共有している。**同じ owner の新しいツールもこの鍵を使う。** ファイル名がツールの名前でも owner の鍵として扱う。
+- owner が違うツール（別の個人アカウントや org）は、その owner で 1 回だけ鍵を作り、その owner のツールで共有する。
 - 公開鍵は各ツールの `tauri.conf.json` の `plugins.updater.pubkey` に入れる。
 
 ## 保管
@@ -52,4 +53,4 @@ CI は Secret が無いときに後者へ自動で落ちる（[Distribution](../
 2. **失った場合**：新しい鍵で署名した版は配布済みのアプリに届かない。README と CHANGELOG に「この版だけ手動で入れ直す」と書き、初回インストールの手順で入れてもらう。以後は新しい鍵で更新できる。
 3. どちらも、owner のすべてのツールで `pubkey` と Secrets を揃えて更新する。
 
-出どころ：image-library README「リリース」、Shelf README「アプリ内アップデートの仕組み」。
+出どころ：stockroom README「リリース」、Shelf README「アプリ内アップデートの仕組み」。

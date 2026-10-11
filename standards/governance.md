@@ -17,7 +17,7 @@
 - 生成物（`dist/`、`src-tauri/target/`、`src-tauri/gen/schemas/`）は commit しない。
 - tag は配布の単位にだけ打つ（[Distribution](distribution.md) §5）。
 
-出どころ：image-library の commit 履歴、workbench の README「リポジトリの決まりごと」。
+出どころ：stockroom の commit 履歴、workbench の README「リポジトリの決まりごと」。
 
 ## 3. AI 利用
 
@@ -27,7 +27,7 @@
 - 次は **人の判断なしに変えない**：`identifier`、`productName`、updater の `pubkey` と `endpoints`、署名まわり、CSP の緩和、capabilities の追加、待ち受けポート。
 - 秘密情報（署名鍵、token）をファイルや commit、ログ、PR の説明に書かない。
 - PR を出す前に §4 の gate をローカルで通す。通らないものを「CI で確認する」と言って出さない。
-- 変更の説明は、何を変えたかだけでなく **なぜそうしたか** を README や docs のコメントに残す。image-library のコードコメントと同じ密度を保つ。
+- 変更の説明は、何を変えたかだけでなく **なぜそうしたか** を README や docs のコメントに残す。stockroom のコードコメントと同じ密度を保つ。
 
 ## 4. 必須の機械的検証
 
@@ -43,10 +43,10 @@
 | ビルド | `npm run tauri build`（macOS Apple Silicon と Windows の両方） | 配布物 |
 
 - Rust テストと型チェックは Linux の runner で走らせてよい（安い）。ビルドは配布対象の OS で走らせる。
-- 既存ツール（image-library、Shelf）は Linter、fmt、clippy が CI に無い。desktop-base の再利用 workflow に入れる形で埋め、それまでは **Adopt going forward** として扱う（[Adoption Guide](../docs/adoption.md) §6）。
+- 既存ツール（stockroom、Shelf）は Linter、fmt、clippy が CI に無い。desktop-base の再利用 workflow に入れる形で埋め、それまでは **Adopt going forward** として扱う（[Adoption Guide](../docs/adoption.md) §6）。
 - gate を通すためにテストを skip、`#[allow]`、`// @ts-ignore` で黙らせない。必要なら理由を書いて PR で説明する。
 
-出どころ：image-library の `.github/workflows/build.yml`（`cargo test` と `tsc --noEmit` の test job、macOS / Windows のビルド matrix）、`package.json` の `npm test`。
+出どころ：stockroom の `.github/workflows/build.yml`（`cargo test` と `tsc --noEmit` の test job、macOS / Windows のビルド matrix）、`package.json` の `npm test`。
 
 ## 5. Standard からの逸脱
 
@@ -60,4 +60,4 @@
 - ローカル受付の token、ペアリングの接続キーはアプリが生成し、ユーザーのアプリ設定だけに置く。リポジトリや拡張機能のソースに書かない。
 - 鍵の生成、保管、作り直しは [アップデートの署名鍵](../playbook/updater-key.md)。
 
-出どころ：image-library README「リリース」、Shelf README「アプリ内アップデートの仕組み」。
+出どころ：stockroom README「リリース」、Shelf README「アプリ内アップデートの仕組み」。

@@ -7,14 +7,14 @@
 - GitHub Secrets に署名鍵がある（[アップデートの署名鍵](updater-key.md)）。
 - `main` が gate を通っている。
 
-## 手順（単独リポジトリ：image-library の形）
+## 手順（単独リポジトリ：stockroom の形）
 
 1. バージョンを 3 か所で上げる。
    ```bash
    npm version 0.18.0 --no-git-tag-version          # package.json と package-lock.json
    # src-tauri/tauri.conf.json の "version"
    # src-tauri/Cargo.toml の version、そのあと
-   cargo update -p image-library --manifest-path src-tauri/Cargo.toml   # Cargo.lock
+   cargo update -p stockroom --manifest-path src-tauri/Cargo.toml   # Cargo.lock
    ```
 2. `CHANGELOG.md` に `## 0.18.0` の節を書く。変更点 / ダウンロード / 注意 の順。
 3. `chore: v0.18.0` で commit し、PR で `main` に入れる。
