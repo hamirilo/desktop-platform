@@ -5,7 +5,7 @@
 
 ## 状況
 
-Django / PostgreSQL / React Islands の Web アプリ開発は `ai-dev-platform`（Standards / Playbook の submodule と Recommendations）で基準を管理している。一方で、image-library を起点に Tauri のデスクトップツールを複数作る予定があり、その基準の置き場が無い。
+Django / PostgreSQL / React Islands の Web アプリ開発は `ai-dev-platform`（Standards / Playbook の submodule と Recommendations）で基準を管理している。一方で、stockroom を起点に Tauri のデスクトップツールを複数作る予定があり、その基準の置き場が無い。
 
 ai-dev-platform の Architecture Standard は Django、PostgreSQL、認証・認可、container boundary が前提で、デスクトップツールには当てはまらない項目が大半である。また、利用している `jazmf-dx/ai-dev-platform` は upstream（hamirilo）の fork であり、fork では独自の version を切らず内容を増やさない運用（upstream の ADR-0005、release.md）になっている。
 
@@ -28,7 +28,7 @@ ai-dev-platform の Architecture Standard は Django、PostgreSQL、認証・認
 
 - 各デスクトップツールの `CLAUDE.md` は `desktop-platform/ai/ONBOARDING.md` だけを読む。ai-dev-platform の ONBOARDING を併読させない。
 - Web と共通の判断（Git、AI 利用、依存の健全性チェック）は両方に書かれる。意図的な重複であり、内容が離れても構わない。
-- image-library と workbench は `CLAUDE.md` と `decisions/project-context.md` を持たないので、Adopt going forward で足す。
+- stockroom と workbench は `CLAUDE.md` と `decisions/project-context.md` を持たないので、Adopt going forward で足す。
 
 ## 見直す条件
 

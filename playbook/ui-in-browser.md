@@ -33,4 +33,4 @@ npm run dev                 # http://localhost:1420
 - モックは「それらしい」データを数十件持ち、フィルタと並び替えだけ本物と同じ結果を返す。
 - 新しいコマンドを `api.ts` に足したら、同じ PR でモックにも足す。足せないなら `throw` して気づけるようにする。
 
-出どころ：image-library `src/main.tsx`、`src/dev/mockBackend.ts`、`.claude/launch.json`。
+出どころ：stockroom `src/main.tsx`、`src/dev/mockBackend.ts`、`.claude/launch.json`。

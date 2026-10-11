@@ -5,7 +5,7 @@
 
 ## 状況
 
-image-library には `docs/ARCHITECTURE.md` などに多くの判断がある。すべてを Standard にすると読む量が増えて守られなくなり、何も Standard にしないと配布や更新で実害が出る。どれをどの層に置くかの基準が要る。
+stockroom には `docs/ARCHITECTURE.md` などに多くの判断がある。すべてを Standard にすると読む量が増えて守られなくなり、何も Standard にしないと配布や更新で実害が出る。どれをどの層に置くかの基準が要る。
 
 ## 決定
 
@@ -21,12 +21,12 @@ image-library には `docs/ARCHITECTURE.md` などに多くの判断がある。
 
 ## 理由
 
-- image-library と Shelf の 2 つで有効だったものに限ることで、今の Core は実例のあるルールだけになる。
+- stockroom と Shelf の 2 つで有効だったものに限ることで、今の Core は実例のあるルールだけになる。
 - 「実害」を基準にすると、好みの話（インデント、命名）を Standard に入れずに済む。それらは Linter と fmt に任せる。
 
 ## 影響
 
-- Standard の各節は「出どころ」として image-library / Shelf のファイルを指す。指せないルールは Standard に書かない。
+- Standard の各節は「出どころ」として stockroom / Shelf のファイルを指す。指せないルールは Standard に書かない。
 - ツール固有の判断は各ツールの `docs/` と `decisions/` に置き、Platform に写さない。
 
 ## 見直す条件
