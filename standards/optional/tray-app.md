@@ -1,0 +1,17 @@
+# Optional Standard: トレイ常駐
+
+**適用条件**：メニューバー（macOS）/ タスクトレイ（Windows）のアイコンから使い、ウィンドウを常に出しておかないツール（Shelf）。
+
+## ルール
+
+- トレイのメニューは少なくとも「表示 / 非表示」「アップデートを確認…」「終了」を持つ。アイコンの左クリックで表示を切り替え、右クリックでメニュー。tooltip にアプリ名とバージョン。
+- **macOS** は `ActivationPolicy::Accessory` にして Dock に出さない。
+- ウィンドウの閉じるは **隠すだけ** にし、終了はトレイのメニューから。
+- ダイアログを出す前にアプリを前面にする。メニューバーアプリは自分から active にならないので、ダイアログがほかのウィンドウの裏に出る。
+- updater は Rust 側で動かし、進捗はトレイのメニュー項目の文言に出す（「ダウンロードしています… 42%」）。トーストを出す場所が無いため。
+- 補助ウィンドウ（画面端の細いウィンドウなど）は `decorations: false`、`skip_taskbar`、`focusable: false` にし、別の capability ファイルを持つ。
+- ウィンドウの位置はモニタの作業領域と scale factor から計算する。GTK は枠が付くまで outer size を返さないので `inner_size` に落ちる。
+- データが小さければ `app_data_dir()` の JSON 1 ファイルでよい。読み込みのたびに存在などの状態を再計算し、ディスクの値を信じない。ユニットテストを同じファイルに置く。
+- UI は素の TypeScript でよい（[Stack](../../recommendations/stack.md)）。React を使う規模になったら Standard の本則に戻る。
+
+出どころ：Shelf `src-tauri/src/lib.rs`（`setup_tray`、`create_edge_strip`、`dock_to_right_edge`）、`src-tauri/src/update.rs`（`bring_to_front`、`set_menu`）、`src-tauri/src/shelf.rs`、`capabilities/edge.json`。

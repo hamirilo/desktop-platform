@@ -1,0 +1,31 @@
+# <ツール名>
+
+<1 行の説明。例：Eagle 風のローカル画像管理アプリ（Tauri 2 / macOS・Windows）>
+
+## 開発の基準
+
+開発の Standard・Recommendations・Playbook は **`../desktop-platform/ai/ONBOARDING.md`** を最初に参照すること（採用 tag：v0.1.0）。Web アプリ向けの ai-dev-platform は参照しない。
+
+実装へ大きく影響する前提は `decisions/project-context.md` にある。先に読む。
+
+## このツール固有
+
+- 設計の境界：`docs/ARCHITECTURE.md`
+- 機能ごとの決定：`docs/<topic>.md`
+- 操作はコマンド表 `src/lib/commands.ts` にまず足す
+- Rust コマンドは `src/lib/api.ts` のラッパ経由で呼ぶ。モック `src/dev/mockBackend.ts` も同じ PR で更新する
+
+## コマンド
+
+```bash
+npm install
+npm run tauri dev      # アプリを起動
+npm run dev            # ブラウザで UI だけ（モック）
+npm test               # cargo test + tsc --noEmit
+npm run lint
+npm run tauri build    # 配布用ビルド（署名鍵が要る。playbook/updater-key.md）
+```
+
+## 変えないもの
+
+`identifier`、`productName`、updater の `pubkey` と `endpoints`、待ち受けポート、CSP の緩和、capabilities の追加は人の判断なしに変えない。
