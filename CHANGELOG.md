@@ -2,6 +2,19 @@
 
 release は `v<major>.<minor>.<patch>` の tag と、この file の `## <version>` の節で行う。各節に「既存のツールで対応が必要な変更」の有無を必ず書く。
 
+## 0.2.0
+
+CI の action を Node.js 24 で動く版にそろえる決まりを足した。古い版のままだと、ビルドのたびに「Node.js 20 is deprecated」の警告が出る。
+
+### 内容
+
+- [Distribution](standards/distribution.md) §6：JavaScript の action は Node.js 24 で動く版を使う。`checkout`、`setup-node`、`upload-artifact`、`download-artifact`、`cache`、`rust-cache`、`tauri-action` の版の表と、`setup-node` の `node-version` とは別の話であることを書いた
+- この Platform の `check-docs` workflow の `actions/checkout` を `v5` に上げた
+
+### 既存のツールで対応が必要な変更
+
+- **Required**：CI の `actions/checkout@v4`、`actions/setup-node@v4`、`actions/upload-artifact@v4` などを [Distribution](standards/distribution.md) §6 の表の版以上に上げる。Actions の annotation に「Node.js 20 is deprecated」が出ているツールが対象
+
 ## 0.1.1
 
 image-library が stockroom に改名したのに合わせて、名前と参照を直した。

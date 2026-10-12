@@ -70,8 +70,22 @@ Apple Developer ID と Windows のコード署名は使わない。代わりに�
 - 署名鍵の Secret が無いとき（fork からの PR、Secret 設定前）は `createUpdaterArtifacts: false` の設定を重ねてインストーラだけを作る。release job はその場合に失敗させる。
 - 配布物は Actions の Artifacts にも上げる（tag でない手動実行の確認用）。
 - 再利用 workflow（desktop-base）ができたら各ツールはそれを `uses:` で呼び、ツール名・ディレクトリ・feed の場所だけを渡す。
+- JavaScript の action は **Node.js 24 で動く版** を使う。GitHub は action の実行環境の Node.js 20 を廃止しており、古い版のままだと毎回「Node.js 20 is deprecated」の警告が annotation に出て、廃止の完了後は動かなくなる。下の表の版以上にする。警告が出たら、そこに列挙された action を上げる。
+- 警告は action の実行環境の話で、`setup-node` の `node-version`（ツールのビルドに使う Node.js、[Stack](../recommendations/stack.md) の「パッケージマネージャ」）とは別。`node-version` を上げても消えない。
 
-出どころ：stockroom `.github/workflows/build.yml`、Shelf `.github/workflows/shelf.yml`。
+| action | Node.js 24 で動く版 |
+|---|---|
+| `actions/checkout` | `v5` 以上 |
+| `actions/setup-node` | `v5` 以上 |
+| `actions/upload-artifact` | `v6` 以上（`v5` は既定が Node.js 20 のまま） |
+| `actions/download-artifact` | `v7` 以上（`v6` は既定が Node.js 20 のまま） |
+| `actions/cache` | `v5` 以上 |
+| `swatinem/rust-cache` | `v2.9.0` 以上。`@v2` が古い版を指していることがあるので、`@v2.9.2` のように patch まで書く |
+| `tauri-apps/tauri-action` | `v0.6.0` 以上（`@v0` は最新の v0.x を指す） |
+
+`dtolnay/rust-toolchain` と `lycheeverse/lychee-action` は composite action なので対象外。表に無い action は、その `action.yml` の `runs.using` が `node24` であることを確かめる。
+
+出どころ：stockroom `.github/workflows/build.yml`、Shelf `.github/workflows/shelf.yml`。Node.js 24 の版は各 action のリリースノート（確認日：2026-10-12）。
 
 ## 7. ビルド設定
 
