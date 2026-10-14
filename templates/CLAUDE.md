@@ -8,6 +8,8 @@
 
 実装へ大きく影響する前提は `decisions/project-context.md` にある。先に読む。
 
+モデルは desktop-platform の Governance §3.1 のティアで使い分ける。設計・難しい調査・重要なレビューは本体のモデル、通常の実装と文書は Sonnet、テスト実行やスクリーンショットなどの確認は Haiku のサブエージェントへ委譲する。
+
 ## このツール固有
 
 - 設計の境界：`docs/ARCHITECTURE.md`

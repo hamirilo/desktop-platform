@@ -7,6 +7,7 @@
 | [ADR-0001](adr-0001-separate-from-web-platform.md) | Web アプリ向けの ai-dev-platform と分け、参照も共有もしない |
 | [ADR-0002](adr-0002-rules-and-base-repositories.md) | ルール（desktop-platform）とコード（desktop-base）を 2 つのリポジトリに分ける |
 | [ADR-0003](adr-0003-core-and-optional-standards.md) | Core / Optional Standard と Recommendation の区分の基準 |
+| [ADR-0004](adr-0004-layout-stability-ahead-of-source.md) | 「表示を切り替えても操作の位置を変えない」を、出どころの実装より先に UI Standard へ入れる |
 
 ## 書き方
 

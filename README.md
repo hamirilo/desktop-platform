@@ -15,7 +15,7 @@ desktop-platform/
 │   ├── architecture.md     層、ディレクトリ、コマンド表、IPC、データの置き場、ログ
 │   ├── security.md         CSP、capabilities、外から来るファイル、ネットワーク
 │   ├── distribution.md     対象 OS、署名なし配布、アプリ内アップデート、リリース、CI
-│   ├── ui.md               テーマ、キーボード、ウィンドウ、フィードバック
+│   ├── ui.md               テーマ、キーボード、ウィンドウ、フィードバック、レイアウトの安定
 │   └── optional/           ローカル受付、複数ツール同居、トレイ常駐
 ├── recommendations/        現時点の選択の正本（Tauri plugin、React、Rust crate）
 ├── playbook/               新しいツールを作る、リリース、鍵、ブラウザで UI、OS の差
@@ -46,9 +46,11 @@ Platform は複数のツールから参照できる workspace 上の位置へ 1 
 workspace/
 ├── desktop-platform/
 ├── desktop-base/
-├── image-library/
+├── stockroom/
 └── workbench/
 ```
+
+stockroom は旧名 image-library（[2204601/stockroom](https://github.com/2204601/stockroom)）。Standard の「出どころ」はこのリポジトリのファイルを指す。
 
 手順、Project Context の項目、既存ツールへの段階適用は [Adoption Guide](docs/adoption.md) を参照してください。
 
@@ -61,7 +63,7 @@ workspace/
 ## 知識・資産の成熟
 
 ```text
-ツール固有の判断・実装（image-library、Shelf …）
+ツール固有の判断・実装（stockroom、Shelf …）
         ↓
 2 つ目のツールでも同じ形が有効だった
         ↓
@@ -74,7 +76,7 @@ Recommendation / Playbook
 必要な場合のみ Standard
 ```
 
-最初からすべてを Standard や共有コードへ昇格させません。今の Core Standard は、image-library と Shelf の 2 つで有効だったものだけを載せています。
+最初からすべてを Standard や共有コードへ昇格させません。今の Core Standard は、stockroom と Shelf の 2 つで有効だったものだけを載せています。
 
 ## このリポジトリに置かないもの
 

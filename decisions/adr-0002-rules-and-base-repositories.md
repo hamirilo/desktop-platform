@@ -5,7 +5,7 @@
 
 ## 状況
 
-image-library から切り出す共通コードがある：OS のプロキシ解決（`proxy.rs`）、updater のチェックとダウンロード、ログの配線、single-instance と window-state、`settings.json`、ウィンドウ生成、フロントの `log` / `update` / `titleBar` / `osNotify` / `ime`、テーマトークン、`tauri.conf.json` などの雛形、CI の workflow。Shelf は既に `proxy.rs` を写していて、アプリ名の文字列以外は同じになっている。
+stockroom から切り出す共通コードがある：OS のプロキシ解決（`proxy.rs`）、updater のチェックとダウンロード、ログの配線、single-instance と window-state、`settings.json`、ウィンドウ生成、フロントの `log` / `update` / `titleBar` / `osNotify` / `ime`、テーマトークン、`tauri.conf.json` などの雛形、CI の workflow。Shelf は既に `proxy.rs` を写していて、アプリ名の文字列以外は同じになっている。
 
 これをルールと同じリポジトリに置くか、別にするかを決める。
 
@@ -25,13 +25,13 @@ desktop-base は **リポジトリの root を npm package、`crate/` を Rust c
 退けた案：
 
 - **1 リポジトリ**：solo での運用は楽だが、上の npm の制約と、文書の変更でコードの version が上がる不自然さが残る。
-- **workbench の中に base を置く**：workbench 内は path 依存で済むが、image-library が workbench に依存する向きになる。長く続くなら独立が素直。
+- **workbench の中に base を置く**：workbench 内は path 依存で済むが、stockroom が workbench に依存する向きになる。長く続くなら独立が素直。
 - **GitHub Packages に publish**：ui-platform の `application-ui-kit` と同じ形で、後から移れる。最初は git tag 依存で足りる。
 
 ## 影響
 
-- desktop-base の最初の中身は、image-library と Shelf の両方で使っているものだけ：proxy、updater、log の配線、settings、再利用 workflow、template。loopback / MCP / webimport は 2 つ目のツールが必要とするまで image-library に置く。
-- updater のロジックは Rust に寄せ、出口をトレイのメニュー文言（Shelf）と webview へのイベント（image-library）の 2 つにする。
+- desktop-base の最初の中身は、stockroom と Shelf の両方で使っているものだけ：proxy、updater、log の配線、settings、再利用 workflow、template。loopback / MCP / webimport は 2 つ目のツールが必要とするまで stockroom に置く。
+- updater のロジックは Rust に寄せ、出口をトレイのメニュー文言（Shelf）と webview へのイベント（stockroom）の 2 つにする。
 - 再利用 workflow を private リポジトリ間で呼ぶには、desktop-base の Actions の設定で同じ owner からのアクセスを許可する。
 - コマンドは最初は crate から export してツールの `generate_handler!` に並べる。増えてきたら Tauri plugin にする。
 

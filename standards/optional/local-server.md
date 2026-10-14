@@ -7,7 +7,7 @@
 ## 1. 待ち受け
 
 - `127.0.0.1` だけで listen する。`0.0.0.0` にしない。
-- ポートは固定し、README に書く（image-library は拡張が 41620、MCP が 41621）。隣のポートを別の用途に使う。開発用の headless サーバーは別のポート（+10）にして、アプリの代わりに答えないようにする。
+- ポートは固定し、README に書く（stockroom は拡張が 41620、MCP が 41621）。隣のポートを別の用途に使う。開発用の headless サーバーは別のポート（+10）にして、アプリの代わりに答えないようにする。
 - 待ち受けるのは **アプリが動いていて、設定でオンにしている間だけ**。既定はオフ。
 - 用途が違う受付（取り込みだけ / 整理だけ）はサーバーも token も分け、片方だけオンにできるようにする。
 
@@ -45,4 +45,4 @@
 - アプリ（Tauri の `AppHandle`）への依存は trait（`Host`）で挟み、テストと headless の example から Tauri なしで動かせるようにする。
 - MCP を Claude Desktop から使う場合は、同じバイナリに `--mcp` の stdio 中継モードを持たせ、動いているアプリへ転送する。
 
-出どころ：image-library `src-tauri/src/webimport.rs`、`src-tauri/src/mcp/`、`src-tauri/src/loopback.rs`、`src-tauri/src/changes.rs`、`src-tauri/examples/webserver.rs`、`docs/MCP.md`。
+出どころ：stockroom `src-tauri/src/webimport.rs`、`src-tauri/src/mcp/`、`src-tauri/src/loopback.rs`、`src-tauri/src/changes.rs`、`src-tauri/examples/webserver.rs`、`docs/MCP.md`。

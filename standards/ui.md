@@ -22,7 +22,7 @@
 - ライトテーマは作らない。必要になったらトークンの差し替えで足す。
 - アニメーションは短く（0.2 秒前後）、トーストの出入りと操作の反応にだけ使う。
 
-出どころ：image-library `src/index.css` の `@theme`、`tauri.conf.json` の window。
+出どころ：stockroom `src/index.css` の `@theme`、`tauri.conf.json` の window。
 
 ## 2. 言語と文言
 
@@ -39,18 +39,18 @@
 - 日本語入力の変換中のキーは無視する（`isComposing` / `keyCode 229`）。
 - README に「キーボード」の表を置く。
 
-出どころ：image-library README「キーボード」、`src/lib/shortcuts.ts`、`src/components/ShortcutHelp.tsx`。
+出どころ：stockroom README「キーボード」、`src/lib/shortcuts.ts`、`src/components/ShortcutHelp.tsx`。
 
 ## 4. ウィンドウ
 
 - 閉じたときの大きさ・位置・最大化を覚える（`tauri-plugin-window-state`、`SIZE | POSITION | MAXIMIZED`）。フルスクリーンと非表示は覚えない。そのディスプレイが無いときは位置だけ戻さない。
-- 最小サイズを決める（image-library は 900 × 560）。
+- 最小サイズを決める（stockroom は 900 × 560）。
 - 二重起動しない（`tauri-plugin-single-instance`）。2 回目の起動は今のウィンドウを前に出す。
 - **macOS** はタイトルバーの帯を無くし（`titleBarStyle: "Overlay"`、`hiddenTitle: true`）、閉じる・最小化・拡大のボタンをページの左上に重ねる。ページは `--titlebar` / `--traffic-lights` の分だけ空け、ツールバーの空いたところとサイドバーの上端を `data-tauri-drag-region` でつかめるようにする。フルスクリーンではボタンが消えるので余白を戻す。
 - **Windows** は OS のタイトルバーをそのまま使う。独自のウィンドウ枠を描かない。
 - 半透明（vibrancy）は macOS だけ、サイドバーにだけ使ってよい。裏にあるときは不透明にする。
 
-出どころ：image-library `src-tauri/src/lib.rs`（`main_window`、plugin の配線）、`src/lib/titleBar.ts`、`tauri.conf.json`。
+出どころ：stockroom `src-tauri/src/lib.rs`（`main_window`、plugin の配線）、`src/lib/titleBar.ts`、`tauri.conf.json`。
 
 ## 5. フィードバック
 
@@ -66,7 +66,7 @@
 - 処理中もウィンドウは固まらない（[Architecture](architecture.md) §4）。
 - トーストは画面の右下、同時に出す数は 3 つ程度。
 
-出どころ：image-library `src/store.ts`（`toast` / `notify`）、`src/components/Toasts.tsx`、`src/components/ActionHud.tsx`、`src/lib/osNotify.ts`。
+出どころ：stockroom `src/store.ts`（`toast` / `notify`）、`src/components/Toasts.tsx`、`src/components/ActionHud.tsx`、`src/lib/osNotify.ts`。
 
 ## 6. ドラッグ&ドロップ
 
@@ -75,7 +75,7 @@
 - **アプリの外へのドラッグ**（ほかのアプリへ渡す）は `tauri-plugin-drag` で OS ネイティブのドラッグにする。
 - ドロップできる場所はドラッグ中に見て分かるようにする（枠の強調、空白の案内）。
 
-出どころ：image-library README「構成」の注記、`src/components/DragLayer.tsx`。Shelf `src/main.ts`。
+出どころ：stockroom README「構成」の注記、`src/components/DragLayer.tsx`。Shelf `src/main.ts`。
 
 ## 7. 一覧
 
@@ -84,7 +84,7 @@
 - 右クリックメニューは 1 段。よく使う小さな操作（回転、お気に入り）はアイコンを横 1 行に並べる。
 - グループ分けと並び替えは表示の好みとして `localStorage` に覚える。
 
-出どころ：image-library `src/components/Grid.tsx`、`src/lib/layouts.ts`、`docs/MENUS.md`。
+出どころ：stockroom `src/components/Grid.tsx`、`src/lib/layouts.ts`、`docs/MENUS.md`。
 
 ## 8. アイコン
 
@@ -99,4 +99,23 @@
 - ヘルプメニューに「ショートカット一覧」「ログを表示」「アップデートを確認…」を置く。
 - 初回起動には「作る / 開く」だけの Welcome 画面を出し、説明書きは最小にする。
 
-出どころ：image-library `src/components/SettingsDialog.tsx`、`src/components/Welcome.tsx`、`docs/SETTINGS.md`。
+出どころ：stockroom `src/components/SettingsDialog.tsx`、`src/components/Welcome.tsx`、`docs/SETTINGS.md`。
+
+## 10. レイアウトの安定
+
+タブ・フィルタ・表示（ビュー・モード・レイアウト・グループ分け）の切り替えなどを繰り返しても、主要な操作の位置やレイアウトが **不必要に変化しない** ようにする。手が覚えた場所を毎回探し直させない。
+
+実現方法の例：
+
+| 場面 | どうするか |
+|---|---|
+| 一時的に使えない操作 | 利用者がその操作の存在を知る必要があれば、消さずに無効表示にし、理由をツールチップに書く。不要な操作まで常に出して情報量を増やさない |
+| ラベルが変わるボタンや状態表示（並び順、グループ分けなど） | `min-width` や表示領域の確保で、隣の操作を押し出さない。固定幅は手段の一つで、長いラベルや狭いウィンドウ幅を考慮する |
+| ある選択の中の下位の選択肢 | 表示の切り替えでは、上位の選択で出し入れせず、少なければ 1 つのセグメントに並べ、多ければメニューにまとめる。設定ダイアログのように上位の選択に応じて下位の項目を切り替えるのが適切な場合は、依存関係に沿った動的 UI を許容する |
+| その表示だけの操作（ゴミ箱を空にする、まとめて整理など） | 置き場所を決めてそこに置き、その領域の位置と高さを保つ |
+| 入力欄の中の × などの小さなボタン | 使えないときは隠してよいが、場所は空けておく（`visibility: hidden`） |
+
+- 利用者が自分で開け閉めするもの（サイドバー、詳細パネル、絞り込みバー）は動いてよい。開け閉めはその操作をしたときにだけ起こし、別の操作の結果として勝手に開かない。
+- 内容（一覧の行、件数、見出し）が変わるのはかまわない。対象は操作の場所だけ。
+
+出どころ：stockroom [`docs/UI.md`](https://github.com/2204601/stockroom/blob/main/docs/UI.md)（原則と、直す箇所の一覧）。実装より先に載せた理由は [ADR-0004](../decisions/adr-0004-layout-stability-ahead-of-source.md)。
