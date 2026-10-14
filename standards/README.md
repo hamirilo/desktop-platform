@@ -12,7 +12,7 @@
 | [Architecture](architecture.md) | 層と依存の向き、ディレクトリ、コマンド表、IPC、設定とデータの置き場、ログ、テスト、ドキュメント | 実装に触れる Task |
 | [Security](security.md) | CSP、capabilities、asset protocol、外から来るファイル、ネットワーク、updater の署名 | 設定ファイル、ファイル入力、通信に触れる Task |
 | [Distribution](distribution.md) | 対象 OS、識別子、署名なし配布、アプリ内アップデート、リリース、CI | 配布・リリース・CI に触れる Task |
-| [UI](ui.md) | テーマ、言語、キーボード、ウィンドウ、フィードバック、ドラッグ&ドロップ、一覧 | 画面に触れる Task |
+| [UI](ui.md) | テーマ、言語、キーボード、ウィンドウ、フィードバック、ドラッグ&ドロップ、一覧、レイアウトの安定 | 画面に触れる Task |
 
 ## Optional
 
