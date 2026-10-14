@@ -25,7 +25,7 @@ Core Standard はすべてのツールに適用する。
 - [Architecture](../standards/architecture.md) — 層と依存の向き、ディレクトリ、コマンド表、IPC、設定とデータの置き場、ログ、テスト、ドキュメント
 - [Security](../standards/security.md) — CSP、capabilities、asset protocol、外から来るファイル、ネットワーク、updater の署名
 - [Distribution](../standards/distribution.md) — 対象 OS、識別子、署名なし配布、アプリ内アップデート、リリース、CI
-- [UI](../standards/ui.md) — テーマ、言語、キーボード、ウィンドウ、フィードバック、ドラッグ&ドロップ
+- [UI](../standards/ui.md) — テーマ、言語、キーボード、ウィンドウ、フィードバック、ドラッグ&ドロップ、一覧、レイアウトの安定（表示を切り替えても操作の位置を変えない）
 
 Optional Standard は該当機能を扱う場合だけ参照する。
 
