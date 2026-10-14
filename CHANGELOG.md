@@ -2,6 +2,19 @@
 
 release は `v<major>.<minor>.<patch>` の tag と、この file の `## <version>` の節で行う。各節に「既存のツールで対応が必要な変更」の有無を必ず書く。
 
+## 0.3.0
+
+AI モデルのティアを使い分ける決まりを Governance に足した。Web 側の ai-dev-platform にはあった決まりで、デスクトップ側に無かったため、すべての作業が最上位のモデルで行われていた。
+
+### 内容
+
+- [Governance](standards/governance.md) §3.1：AI モデルを Light / Standard / High Performance のティアで使い分ける。具体的なモデル名は Standard に固定せず、各ツールの `CLAUDE.md` に書く
+- `templates/CLAUDE.md` の「開発の基準」にモデルの割り当ての例を足した
+
+### 既存のツールで対応が必要な変更
+
+- **Adopt going forward**：ツールの `CLAUDE.md` の「開発の基準」に、ティアごとに使うモデルを 1 行書く（雛形は [templates/CLAUDE.md](templates/CLAUDE.md)）
+
 ## 0.2.0
 
 CI の action を Node.js 24 で動く版にそろえる決まりを足した。古い版のままだと、ビルドのたびに「Node.js 20 is deprecated」の警告が出る。
