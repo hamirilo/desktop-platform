@@ -15,7 +15,7 @@ desktop-platform/
 │   ├── architecture.md     層、ディレクトリ、コマンド表、IPC、データの置き場、ログ
 │   ├── security.md         CSP、capabilities、外から来るファイル、ネットワーク
 │   ├── distribution.md     対象 OS、署名なし配布、アプリ内アップデート、リリース、CI
-│   ├── ui.md               テーマ、キーボード、ウィンドウ、フィードバック、レイアウトの安定
+│   ├── ui.md               テーマ、キーボード、ウィンドウ、フィードバック、設定とヘルプ、レイアウトの安定
 │   └── optional/           ローカル受付、複数ツール同居、トレイ常駐
 ├── recommendations/        現時点の選択の正本（Tauri plugin、React、Rust crate）
 ├── playbook/               新しいツールを作る、リリース、鍵、ブラウザで UI、OS の差

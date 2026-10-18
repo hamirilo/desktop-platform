@@ -41,13 +41,30 @@ Apple Developer ID と Windows のコード署名は使わない。代わりに�
 - `bundle.createUpdaterArtifacts: true`。更新ファイル（`.app.tar.gz` と `.sig`、`-setup.exe` の `.sig`）と `latest.json` をリリースに添付する。
 - `plugins.updater.endpoints` は 1 つ：単独リポジトリは `releases/latest/download/latest.json`、同居リポジトリは `releases/download/<name>-updater/latest.json`（[Optional](optional/multi-tool-repo.md)）。
 - 起動から数秒後（4 秒）に確認する。**release ビルドだけ**。見つかったときだけダイアログで知らせ、「更新して再起動」で適用する。
-- 手動の確認を設定画面かメニュー（トレイ常駐ならトレイのメニュー）に置く。手動のときは「最新版です」と失敗も知らせる。自動のときは黙る。
+- 手動の確認を設定画面の「アップデート」の節とメニュー（トレイ常駐ならトレイのメニュー）に置く。手動のときは「最新版です」と失敗も知らせる。自動のときは黙る。設定の「アップデート」の節から確かめたときは、結果をその節に出す（トーストもダイアログも重ねない）。
+
+### 4.1 知らせ方
+
+前触れなく出るダイアログは、どのアプリからか分からないと怪しく見える。どのツールも同じ形で、アプリの名前を先に出す。
+
+| 部分 | 中身 |
+|---|---|
+| ダイアログ | OS のダイアログ（`tauri-plugin-dialog`、`kind: info`）。トレイ常駐はアプリを前面にしてから出す |
+| タイトル | 「`<Product>` の新しいバージョンがあります」。macOS では太字の 1 行目、Windows ではウィンドウのタイトルになる |
+| 本文 | 「v`<new>` が使えます（今のバージョンは v`<current>`）。」改行して「更新すると `<Product>` が再起動します。」 |
+| ボタン | 「更新して再起動」「あとで」「更新内容を見る」の 3 つ。並びは OS に合わせる。macOS：［更新内容を見る］［あとで］［**更新して再起動**］、Windows：［**更新して再起動**］［更新内容を見る］［あとで］（Esc は「あとで」） |
+
+- **更新内容（リリースノート）はダイアログに載せない**。長い文がダイアログを広げ、リリースの本文はダウンロードの案内も含むのでアプリの中では意味をなさない。「更新内容を見る」で、そのバージョンの GitHub のリリースのページ（単独リポジトリは `releases/tag/v<version>`、同居リポジトリは `releases/tag/<name>-v<version>`）をブラウザで開く。
+- URL は Rust のコマンド（`open_release_page(version)`）で組み立て、フロントから渡すのはバージョンだけにする。`opener` の capability を広げずに済み、任意の URL を開く入口も作らない。
+- 「あとで」と「更新内容を見る」はダイアログを閉じる。その版は、設定の「アップデート」の節（「更新して再起動」のボタンが出る）、トレイ常駐ならトレイのメニュー（「アップデートを確認…」が「v`<new>` に更新…」に変わる）からいつでも入れられる。次の自動の確認でもまた聞く。
+- 「最新版です」「アップデートに失敗しました」などのダイアログも、タイトルは「`<Product>` のアップデート」にする。
+- ウィンドウのあるツールは、更新して起動し直した最初の 1 回だけ「`<Product>` を v`<version>` に更新しました」のトーストを出し、［更新内容を見る］を付ける（前回のバージョンは `localStorage` の `lastVersion`）。何も言わずに再起動すると、何が起きたか分からない。
 - 設定で自動確認をオフにできるようにしてよい（stockroom の `autoUpdate`）。
 - 確認とダウンロードは OS のプロキシ設定（PAC を含む）を通す。updater の HTTP クライアントは PAC を評価できないので、アプリ側で解決して `proxy` に渡す。
 - Windows は `installMode: "passive"`。インストーラが先にアプリを終了させるので、`relaunch` は no-op でよい。macOS は `.app` が差し替わるので再起動する。
 - ダウンロードの進捗は 1 秒に数回以上描き直さない。チャンクは 1 秒に数百回届く。
 
-出どころ：stockroom `src/lib/update.ts`、`src-tauri/src/proxy.rs`、Shelf `src-tauri/src/update.rs`。
+出どころ：stockroom `src/lib/update.ts`、`src-tauri/src/proxy.rs`、`src-tauri/src/commands.rs`（`open_release_page`）、`docs/SETTINGS.md`「アップデートの知らせ方」、Shelf `src-tauri/src/update.rs`。
 
 ## 5. リリース
 
